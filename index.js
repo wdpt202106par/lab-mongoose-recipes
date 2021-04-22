@@ -22,8 +22,8 @@ mongoose
   .then(() => {
     // Run your code here, after you have insured that the connection was made
     Recipe.create(data)
-    .then(function(recipe){
-      console.log("name is " + recipe)
+    .then(function(title){
+      console.log("name is " + title)
     })
     .catch(function(error){
       console.log(error)
