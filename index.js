@@ -22,22 +22,31 @@ mongoose
   .then(() => {
     // Run your code here, after you have insured that the connection was made
     // data.forEach((element) => {
-    //   Recipe.create(element)
-    //     .then((ret) => console.log(ret.title))
-    //     .catch((err) => console.log(err));
+    const promises = [];
+    promises.push(
+      Recipe.create(data[0])
+        .then((ret) => console.log(ret.title))
+        .catch((err) => console.log(err))
+    );
     // });
-    Recipe.insertMany(data)
-      .then(function (docs) {
-        docs.forEach((element) => {
-          console.log(element.title);
-        });
-      })
-      .catch(function (err) {
-        console.log(err);
-      });
+    promises.push(
+      Recipe.insertMany(data)
+        .then(function (docs) {
+          for (let i = 0; i < docs.length; i++) {
+            const element = docs[i];
+            console.log(element.title);
+          }
+        })
+        .catch(function (err) {
+          console.log(err);
+        })
+    );
+    Promise.all(promises).then(() => {
+      Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }).then((ret) =>
+        console.log("Success")
+      );
+    });
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });
-
-  
