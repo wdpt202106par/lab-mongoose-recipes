@@ -21,12 +21,23 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
-    data.forEach((element) => {
-      Recipe.create(element)
-        .then((ret) => console.log(ret.title))
-        .catch((err) => console.log(err));
-    });
+    // data.forEach((element) => {
+    //   Recipe.create(element)
+    //     .then((ret) => console.log(ret.title))
+    //     .catch((err) => console.log(err));
+    // });
+    Recipe.insertMany(data)
+      .then(function (docs) {
+        docs.forEach((element) => {
+          console.log(element.title);
+        });
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
   })
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });
+
+  
