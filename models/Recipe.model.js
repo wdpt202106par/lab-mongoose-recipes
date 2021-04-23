@@ -2,7 +2,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const recipeSchema = new Schema({
-  title: String,
+  title: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   level: {
     type: String,
     enum: ["Easy Peasy", "Amateur Chef", "UltraPro Chef"],
@@ -28,7 +32,10 @@ const recipeSchema = new Schema({
     type: String,
     default: "https://images.media-allrecipes.com/images/75131.jpg",
   },
-  duration: Number,
+  duration: {
+    type: Number,
+    min: 0,
+  },
   creator: String,
   created: {
     type: Date,
