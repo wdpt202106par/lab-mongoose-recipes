@@ -23,7 +23,24 @@ mongoose
     // Run your code here, after you have insured that the connection was made
     Recipe.create(data)
     .then(function(title){
-      console.log("name is " + title)
+      title.forEach(function(individual){
+        console.log(`${individual.title}`)
+        Recipe.updateOne({ title: 'Rigatoni alla Genovese' }, { duration: '100000' })
+        .then(function(){
+          console.log("its done and ready")
+        })
+        .catch(function(err){
+          console.log(err)
+        });
+      
+        Recipe.deleteOne({ title: 'Carrot Cake' })
+        .then(function(){
+          console.log("its off the menu")
+        })
+        .catch(function(err){
+          console.log(err)
+        });
+      })
     })
     .catch(function(error){
       console.log(error)

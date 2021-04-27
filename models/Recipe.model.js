@@ -15,6 +15,7 @@ const recipeSchema = new Schema({
   cusine: {
     type: String,
     // required: true,
+    // unique: true,
   },
   dishType: {
     type: String,
