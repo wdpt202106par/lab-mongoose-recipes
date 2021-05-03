@@ -23,11 +23,7 @@ mongoose
     // Run your code here, after you have insured that the connection was made
     // data.forEach((element) => {
     const promises = [];
-    promises.push(
-      Recipe.create(data[0])
-        .then((ret) => console.log(ret.title))
-        .catch((err) => console.log(err))
-    );
+   
     // });
     promises.push(
       Recipe.insertMany(data)
@@ -42,9 +38,15 @@ mongoose
         })
     );
     Promise.all(promises).then(() => {
-      Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }).then((ret) =>
-        console.log("Success")
-      );
+      Recipe.findOneAndUpdate(
+        { title: "Rigatoni alla Genovese" },
+        { duration: 100 }
+      ).then((ret) => console.log("Success")).catch((err)=> console.log(err));
+      
+      Recipe.deleteOne({ title: "Carrot Cake" }).then((del)=> {
+        console.log('delete of ',del);
+        mongoose.connection.close();
+    });
     });
   })
   .catch((error) => {
